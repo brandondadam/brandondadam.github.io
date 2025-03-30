@@ -48,11 +48,21 @@ body {
   position: relative;
 }
 
-.spline-bg {
+.canvas3d {
   position: absolute;
   inset: 0;
   z-index: -1;
 }
+
+canvas a {
+  background: red;
+  display: none !important;
+}
+
+#container {
+  display: none !important;
+}
+
 
 p {
   flex: 1;
