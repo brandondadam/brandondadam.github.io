@@ -1,8 +1,0 @@
-{
-  "dependencies": {
-    "@splinetool/runtime": "^1.9.82"
-  },
-  "devDependencies": {
-    "vite": "^6.2.5"
-  }
-}
