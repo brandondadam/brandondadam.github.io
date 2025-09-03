@@ -31,25 +31,25 @@
 }
 
 :root {
-  --color-dark: var(--color-neutral-900);
-  --color-light: var(--color-neutral-50);
-  --color-primary: #c1fe1e;
   --_spacing---container-padding\<deleted\|variable-bf23a90b-fce9-d8b9-e3f0-e0763b085c69\>: 2em;
-  --color-neutral-600: #2b2b2c;
   --gap: 2em;
   --color-black\<deleted\|variable-adb418d3-72d5-dffa-50e1-6be75670a8e1\>: var(--color-neutral-900);
-  --color-secondary: #582efb;
   --color-neutral-50: #f0f0f0;
   --color-neutral-100: #dbdbdb;
   --color-neutral-200: #b3b3b4;
   --color-neutral-300: #8e8e8e;
   --color-neutral-400: #707071;
   --color-neutral-500: #404041;
+  --color-neutral-600: #2b2b2c;
   --color-neutral-700: #1d1d1e;
   --color-neutral-800: #070708;
   --color-neutral-900: #0d0d0e;
   --color-error: #fb114f;
   --color-success: #1cd65a;
+  --color-primary: #c1fe1e;
+  --color-secondary: #582efb;
+  --color-dark: var(--color-neutral-900);
+  --color-light: var(--color-neutral-50);
   --section-padding: 0em;
   --container-padding: 2em;
 }
@@ -228,7 +228,8 @@ ul {
 }
 
 .project-link {
-  color: #fff;
+  color: var(--color-light);
+  ;
   text-decoration: none;
 }
 
@@ -293,24 +294,10 @@ ul {
   font-family: "Offbit 101", Arial, sans-serif;
 }
 
-.primary-button {
-  color: #000;
-  text-transform: uppercase;
-  background-color: #f7f72b;
-  border-radius: 2px;
-  padding: 18px 32px 14px;
-  font-family: "Offbit 101", Arial, sans-serif;
-  font-size: 16px;
-  font-weight: 700;
-  line-height: 16px;
-  display: flex;
-  box-shadow: 0 2px 4px #0003;
-}
-
 .seconrdary-button {
   -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
-  color: #fff;
+  color: var(--color-light);
   text-transform: uppercase;
   background-color: #0000003d;
   background-image: linear-gradient(#fff3, #fff3);
@@ -331,7 +318,7 @@ ul {
 .button-primary {
   z-index: 1;
   background-color: var(--color-primary);
-  color: #000;
+  color: var(--color-dark);
   text-transform: uppercase;
   -webkit-user-select: none;
   user-select: none;
@@ -385,13 +372,525 @@ ul {
 }
 
 .button-default__background.is-bazzle-snap {
-  background-color: #fbfb11;
+  background-color: var(--color-primary);
   border-radius: 2px;
   box-shadow: 0 2px 8px #0003;
 }
 
 .css-is-bazzle-snap.u-css {
   display: none;
+}
+
+/* is-bazzle-snap */
+/* inspired from https://departuremono.com (awesome font btw) */
+.button-icon.is-bazzle-snap {
+  --ease: cubic-bezier(.21, 1, .34, 1);
+  --text-ease: cubic-bezier(0.215, 0.61, 0.355, 1);
+  --speed: 0.45s;
+  --speed-fast: 0.3s;
+  --speed-faster: 0.15s;
+  --border-stroke: .5px;
+  --border-color: rgba(0, 0, 0, 0) 90deg, rgba(255, 255, 255, 0.8) 0;
+  --border-width: 8px 8px border-box no-repeat;
+}
+
+.button-icon.is-bazzle-snap .button-icon__icon {
+  transition: all .15s ease-out;
+}
+
+.button-icon.is-bazzle-snap::before {
+  content: "";
+  display: block;
+  position: absolute;
+  inset: 0;
+  background: conic-gradient(from 90deg at top var(--border-stroke) left var(--border-stroke), var(--border-color)) 0 0 / var(--border-width), conic-gradient(from 180deg at top var(--border-stroke) right var(--border-stroke), var(--border-color)) 100% 0 / var(--border-width), conic-gradient(from 0deg at bottom var(--border-stroke) left var(--border-stroke), var(--border-color)) 0 100% / var(--border-width), conic-gradient(from -90deg at bottom var(--border-stroke) right var(--border-stroke), var(--border-color)) 100% 100% / var(--border-width);
+  transition: transform var(--speed) var(--ease), filter var(--speed-fast) var(--ease), opacity var(--speed) var(--ease);
+  pointer-events: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .button-icon.is-bazzle-snap::before {
+    transform: scaleX(2) scaleY(1.01);
+    filter: blur(8px);
+    opacity: 0;
+  }
+
+  .button-icon.is-bazzle-snap:hover::before,
+  .button-icon.is-bazzle-snap:focus-visible::before {
+    transform: scaleX(1) scaleY(1);
+    filter: blur(0);
+    opacity: 1;
+    animation: bazzle-hover .5s infinite;
+  }
+
+  .button-icon.is-bazzle-snap:hover .button-icon__icon,
+  .button-icon.is-bazzle-snap:focus-visible .button-icon__icon {
+    animation: bazzle-snap-text-in var(--speed) var(--text-ease) normal forwards;
+  }
+
+  .button-icon.is-bazzle-snap:hover .button-icon__icon,
+  .button-icon.is-bazzle-snap:focus-visible .button-icon__icon {
+    /* transform: scaleX(.95) scaleY(.83); */
+    width: calc(100% - 6px);
+    height: calc(100% - 6px);
+  }
+}
+
+@media screen and (pointer: coarse) {
+  .button-icon.is-bazzle-snap::before {
+    display: none;
+  }
+
+}
+
+@keyframes bazzle-snap-text-in {
+  0% {
+    opacity: 1;
+  }
+
+  49% {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+
+  50% {
+    transform: scale(1.05);
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes bazzle-hover {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.6;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+/* is-bazzle-snap */
+/* inspired from https://departuremono.com (awesome font btw) */
+.button-primary.is-bazzle-snap {
+  --ease: cubic-bezier(.21, 1, .34, 1);
+  --text-ease: cubic-bezier(0.215, 0.61, 0.355, 1);
+  --speed: 0.45s;
+  --speed-fast: 0.3s;
+  --speed-faster: 0.15s;
+  --border-stroke: .5px;
+  --border-color: rgba(0, 0, 0, 0) 90deg, rgba(255, 255, 255, 0.8) 0;
+  --border-width: 12px 12px border-box no-repeat;
+}
+
+.button-primary.is-bazzle-snap .button-default__background {
+  transition: all .15s ease-out;
+}
+
+.button-primary.is-bazzle-snap::before {
+  content: "";
+  display: block;
+  position: absolute;
+  inset: 0;
+  background: conic-gradient(from 90deg at top var(--border-stroke) left var(--border-stroke), var(--border-color)) 0 0 / var(--border-width), conic-gradient(from 180deg at top var(--border-stroke) right var(--border-stroke), var(--border-color)) 100% 0 / var(--border-width), conic-gradient(from 0deg at bottom var(--border-stroke) left var(--border-stroke), var(--border-color)) 0 100% / var(--border-width), conic-gradient(from -90deg at bottom var(--border-stroke) right var(--border-stroke), var(--border-color)) 100% 100% / var(--border-width);
+  transition: transform var(--speed) var(--ease), filter var(--speed-fast) var(--ease), opacity var(--speed) var(--ease);
+  pointer-events: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .button-primary.is-bazzle-snap::before {
+    transform: scaleX(2) scaleY(1.01);
+    filter: blur(8px);
+    opacity: 0;
+  }
+
+  .button-primary.is-bazzle-snap:hover::before,
+  .button-primary.is-bazzle-snap:focus-visible::before {
+    transform: scaleX(1) scaleY(1);
+    filter: blur(0);
+    opacity: 1;
+    animation: bazzle-hover .5s infinite;
+  }
+
+  .button-primary.is-bazzle-snap:hover .button-default__text,
+  .button-primary.is-bazzle-snap:focus-visible .button-default__text {
+    animation: bazzle-snap-text-in var(--speed) var(--text-ease) normal forwards;
+  }
+
+  .button-primary.is-bazzle-snap:hover .button-default__background,
+  .button-primary.is-bazzle-snap:focus-visible .button-default__background {
+    /* transform: scaleX(.95) scaleY(.83); */
+    width: calc(100% - 8px);
+    height: calc(100% - 8px);
+  }
+}
+
+@media screen and (pointer: coarse) {
+  .button-primary.is-bazzle-snap::before {
+    display: none;
+  }
+
+  /*
+  .button-primary.is-bazzle-snap:hover::before,
+  .button-primary.is-bazzle-snap:focus-visible::before {
+    display: none;
+  }
+  .button-primary.is-bazzle-snap:hover .button-default__text,
+  .button-primary.is-bazzle-snap:focus-visible .button-default__text {
+    display: none;
+  }
+  .button-primary.is-bazzle-snap:hover .button-default__background,
+  .button-primary.is-bazzle-snap:focus-visible .button-default__background {
+    display: none;
+  }
+  */
+}
+
+@keyframes bazzle-snap-text-in {
+  0% {
+    opacity: 1;
+  }
+
+  49% {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+
+  50% {
+    transform: scale(1.05);
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes bazzle-hover {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.6;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+/* is-bazzle-snap */
+/* inspired from https://departuremono.com (awesome font btw) */
+.button-secondary.is-bazzle-snap {
+  --ease: cubic-bezier(.21, 1, .34, 1);
+  --text-ease: cubic-bezier(0.215, 0.61, 0.355, 1);
+  --speed: 0.45s;
+  --speed-fast: 0.3s;
+  --speed-faster: 0.15s;
+  --border-stroke: .5px;
+  --border-color: rgba(0, 0, 0, 0) 90deg, rgba(255, 255, 255, 0.8) 0;
+  --border-width: 12px 12px border-box no-repeat;
+}
+
+.button-secondary.is-bazzle-snap .button-secondary__background {
+  transition: all .15s ease-out;
+}
+
+.button-secondary.is-bazzle-snap::before {
+  content: "";
+  display: block;
+  position: absolute;
+  inset: 0;
+  background: conic-gradient(from 90deg at top var(--border-stroke) left var(--border-stroke), var(--border-color)) 0 0 / var(--border-width), conic-gradient(from 180deg at top var(--border-stroke) right var(--border-stroke), var(--border-color)) 100% 0 / var(--border-width), conic-gradient(from 0deg at bottom var(--border-stroke) left var(--border-stroke), var(--border-color)) 0 100% / var(--border-width), conic-gradient(from -90deg at bottom var(--border-stroke) right var(--border-stroke), var(--border-color)) 100% 100% / var(--border-width);
+  transition: transform var(--speed) var(--ease), filter var(--speed-fast) var(--ease), opacity var(--speed) var(--ease);
+  pointer-events: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .button-secondary.is-bazzle-snap::before {
+    transform: scaleX(2) scaleY(1.01);
+    filter: blur(8px);
+    opacity: 0;
+  }
+
+  .button-secondary.is-bazzle-snap:hover::before,
+  .button-secondary.is-bazzle-snap:focus-visible::before {
+    transform: scaleX(1) scaleY(1);
+    filter: blur(0);
+    opacity: 1;
+    animation: bazzle-hover .5s infinite;
+  }
+
+  .button-secondary.is-bazzle-snap:hover .button-secondary__text,
+  .button-secondary.is-bazzle-snap:focus-visible .button-secondary__text {
+    animation: bazzle-snap-text-in var(--speed) var(--text-ease) normal forwards;
+  }
+
+  .button-secondary.is-bazzle-snap:hover .button-secondary__background,
+  .button-secondary.is-bazzle-snap:focus-visible .button-secondary__background {
+    /* transform: scaleX(.95) scaleY(.83); */
+    width: calc(100% - 8px);
+    height: calc(100% - 8px);
+  }
+}
+
+@media screen and (pointer: coarse) {
+  .button-secondary.is-bazzle-snap::before {
+    display: none;
+  }
+
+  /*
+  .button-secondary.is-bazzle-snap:hover::before,
+  .button-secondary.is-bazzle-snap:focus-visible::before {
+  	display: none;
+  }
+  .button-secondary.is-bazzle-snap:hover .button-secondary__text,
+  .button-secondary.is-bazzle-snap:focus-visible .button-secondary__text {
+    display: none;
+  }
+  .button-secondary.is-bazzle-snap:hover .button-secondary__background,
+  .button-secondary.is-bazzle-snap:focus-visible .button-secondary__background {
+      display: none;
+  }
+  */
+}
+
+@keyframes bazzle-snap-text-in {
+  0% {
+    opacity: 1;
+  }
+
+  49% {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+
+  50% {
+    transform: scale(1.05);
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes bazzle-hover {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.6;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+/* is-bazzle-snap */
+/* inspired from https://departuremono.com (awesome font btw) */
+.copy-email-button.is-bazzle-snap {
+  --ease: cubic-bezier(.21, 1, .34, 1);
+  --text-ease: cubic-bezier(0.215, 0.61, 0.355, 1);
+  --speed: 0.45s;
+  --speed-fast: 0.3s;
+  --speed-faster: 0.15s;
+  --border-stroke: .5px;
+  --border-color: rgba(0, 0, 0, 0) 90deg, rgba(0, 0, 0, 0.8) 0;
+  --border-width: 12px 12px border-box no-repeat;
+}
+
+.copy-email-button.is-bazzle-snap .button-email__background {
+  transition: all .15s ease-out;
+}
+
+.copy-email-button.is-bazzle-snap::before {
+  content: "";
+  display: block;
+  position: absolute;
+  inset: 0;
+  background: conic-gradient(from 90deg at top var(--border-stroke) left var(--border-stroke), var(--border-color)) 0 0 / var(--border-width), conic-gradient(from 180deg at top var(--border-stroke) right var(--border-stroke), var(--border-color)) 100% 0 / var(--border-width), conic-gradient(from 0deg at bottom var(--border-stroke) left var(--border-stroke), var(--border-color)) 0 100% / var(--border-width), conic-gradient(from -90deg at bottom var(--border-stroke) right var(--border-stroke), var(--border-color)) 100% 100% / var(--border-width);
+  transition: transform var(--speed) var(--ease), filter var(--speed-fast) var(--ease), opacity var(--speed) var(--ease);
+  pointer-events: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .copy-email-button.is-bazzle-snap::before {
+    transform: scaleX(2) scaleY(1.01);
+    filter: blur(8px);
+    opacity: 0;
+  }
+
+  .copy-email-button.is-bazzle-snap:hover::before,
+  .copy-email-button.is-bazzle-snap:focus-visible::before {
+    transform: scaleX(1) scaleY(1);
+    filter: blur(0);
+    opacity: 1;
+    animation: bazzle-hover .5s infinite;
+  }
+
+  .copy-email-button.is-bazzle-snap:hover .copy-email-text,
+  .copy-email-button.is-bazzle-snap:focus-visible .copy-email-text {
+    animation: bazzle-snap-text-in var(--speed) var(--text-ease) normal forwards;
+  }
+
+  .copy-email-button.is-bazzle-snap:hover .button-email__background,
+  .copy-email-button.is-bazzle-snap:focus-visible .button-email__background {
+    /* transform: scaleX(.95) scaleY(.83); */
+    width: calc(100% - 8px);
+    height: calc(100% - 8px);
+  }
+}
+
+@media screen and (pointer: coarse) {
+  .copy-email-button.is-bazzle-snap::before {
+    display: none;
+  }
+
+  /*
+  .button-secondary.is-bazzle-snap:hover::before,
+  .button-secondary.is-bazzle-snap:focus-visible::before {
+  	display: none;
+  }
+  .button-secondary.is-bazzle-snap:hover .button-secondary__text,
+  .button-secondary.is-bazzle-snap:focus-visible .button-secondary__text {
+    display: none;
+  }
+  .button-secondary.is-bazzle-snap:hover .button-secondary__background,
+  .button-secondary.is-bazzle-snap:focus-visible .button-secondary__background {
+      display: none;
+  }
+  */
+}
+
+@keyframes bazzle-snap-text-in {
+  0% {
+    opacity: 1;
+  }
+
+  49% {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+
+  50% {
+    transform: scale(1.05);
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Hover styling */
+@media (hover: hover) {
+  .copy-email-button:hover .copy-email-text__el {
+    transform: translate(0px, -100%);
+  }
+}
+
+/* Keyboard focus styling */
+.copy-email-button:focus .copy-email-text__el {
+  transform: translate(0px, -100%);
+}
+
+/* 'Copied' state, when a user has clicked the button */
+[data-copy-button="copied"] .copy-email-text__el {
+  transform: translate(0px, -200%) !important;
+}
+
+@keyframes bazzle-hover {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.6;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+/* is-sneaky-sprocket */
+/* inspired from game Zenless Zone Zero */
+.button-link.is-sneaky-sprocket {
+  --ease: cubic-bezier(.21, 1, .34, 1);
+  --opacity-ease: cubic-bezier(0.215, 0.61, 0.355, 1);
+  --speed-slow: 0.6s;
+  --speed: 0.45s;
+  --speed-fast: 0.3s;
+  --speed-faster: 0.15s;
+}
+
+.button-link.is-sneaky-sprocket .button-link__icon:nth-of-type(1) path,
+.button-link.is-sneaky-sprocket .button-link__icon:nth-of-type(1) path {
+  animation: sneaky-sprocket-left var(--speed-slow) var(--ease) none infinite;
+  animation-play-state: running;
+}
+
+.button-link.is-sneaky-sprocket .button-link__icon:nth-of-type(1) {
+  transform: translateX(0) scaleX(1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .button-link.is-sneaky-sprocket .button-link__icon {
+    transition: transform var(--speed) var(--ease), opacity var(--speed-faster) var(--opacity-ease);
+    opacity: 0;
+  }
+
+  .button-link.is-sneaky-sprocket .button-link__icon:nth-of-type(1) {
+    transform: translateX(-0.75rem) scaleX(2);
+  }
+
+  .button-link.is-sneaky-sprocket:hover .button-link__icon,
+  .button-link.is-sneaky-sprocket:focus-visible .button-link__icon {
+    transform: translateX(0) scaleX(1);
+    opacity: 1;
+  }
+
+  .button-link.is-sneaky-sprocket .button-link__icon:nth-of-type(1) path,
+  .button-link.is-sneaky-sprocket .button-link__icon:nth-of-type(1) path {
+    animation: none;
+  }
+
+  .button-link.is-sneaky-sprocket:hover .button-link__icon:nth-of-type(1) path,
+  .button-link.is-sneaky-sprocket:focus-visible .button-link__icon:nth-of-type(1) path {
+    animation: sneaky-sprocket-left var(--speed-slow) var(--ease) none infinite;
+    animation-delay: var(--speed);
+  }
+}
+
+@media screen and (pointer: coarse) {
+  .button-link.is-sneaky-sprocket .button-link__icon {
+    display: none;
+  }
+}
+
+@keyframes sneaky-sprocket-left {
+  0% {
+    transform: translateX(0);
+  }
+
+  50% {
+    transform: translateX(-0.25rem);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
 }
 
 .button-list__tag {
@@ -454,7 +953,7 @@ ul {
 
 .button-secondary {
   z-index: 1;
-  color: #000;
+  color: var(--color-dark);
   text-transform: uppercase;
   -webkit-user-select: none;
   user-select: none;
@@ -484,7 +983,7 @@ ul {
 
 .button-secondary__background {
   z-index: -1;
-  background-color: #ffe32e;
+  background-color: var(--color-primary);
   border-radius: 1.1875rem;
   place-self: center;
   width: 100%;
@@ -510,7 +1009,7 @@ ul {
 
 .button-icon {
   z-index: 1;
-  color: #000;
+  color: var(--color-dark);
   text-transform: uppercase;
   -webkit-user-select: none;
   user-select: none;
@@ -541,7 +1040,7 @@ ul {
 }
 
 .button-sneacky-bolt {
-  color: #f9f4eb;
+  color: var(--color-light);
   letter-spacing: -.02em;
   text-transform: uppercase;
   -webkit-user-select: none;
@@ -574,7 +1073,7 @@ ul {
 
 .button-sneacky-bolt_bg {
   pointer-events: none;
-  background-color: #000;
+  background-color: var(--color-dark);
   border-radius: .3125rem;
   grid-area: 1 / 1;
   overflow: clip;
@@ -591,7 +1090,7 @@ ul {
 
 .button-sneacky-bolt_icon {
   pointer-events: none;
-  color: #000;
+  color: var(--color-dark);
   grid-area: 1 / 1;
   place-self: center flex-end;
   height: 1rem;
@@ -628,7 +1127,7 @@ ul {
 
 .button-link {
   z-index: 1;
-  color: #000;
+  color: var(--color-dark);
   text-transform: uppercase;
   -webkit-user-select: none;
   user-select: none;
@@ -734,7 +1233,7 @@ ul {
   grid-column-gap: 8vw;
   grid-row-gap: 8vw;
   grid-template: "."
-  / .5fr 2fr;
+    / .5fr 2fr;
   grid-auto-columns: 1fr;
   place-content: stretch space-between;
   justify-items: stretch;
@@ -788,8 +1287,8 @@ ul {
 }
 
 .styleguide {
-  padding-bottom: calc(var(--footer-height)  + var(--section-padding));
-  padding-top: calc(var(--header-height)  + var(--section-padding));
+  padding-bottom: calc(var(--footer-height) + var(--section-padding));
+  padding-top: calc(var(--header-height) + var(--section-padding));
   flex-flow: column;
   justify-content: center;
   align-items: center;
@@ -1054,6 +1553,34 @@ ul {
   padding-top: 10.5em;
   padding-left: 7em;
   padding-right: 7em;
+}
+
+.main-title__list:hover:has(.main-title__item:hover) .main-title__item:not(:hover) {
+  opacity: 0.45;
+}
+
+.overlay-title__wrap .project-title {
+  position: absolute;
+  font-size: 7.5em;
+  text-wrap: auto;
+}
+
+@media (max-width: 991px) {
+  .overlay-title__wrap .project-title {
+    font-size: 6em;
+  }
+}
+
+@media (max-width: 767px) {
+  .overlay-title__wrap .project-title {
+    font-size: 4.25em;
+  }
+}
+
+@media (max-width: 479px) {
+  .overlay-title__wrap .project-title {
+    font-size: 3em;
+  }
 }
 
 .text-reg {
@@ -1523,7 +2050,8 @@ ul {
   outline: 3px #131313;
 }
 
-.copy-email-button:focus-visible, .copy-email-button[data-wf-focus-visible] {
+.copy-email-button:focus-visible,
+.copy-email-button[data-wf-focus-visible] {
   outline-offset: 4px;
   outline: 2px solid #fff;
 }
@@ -1591,7 +2119,8 @@ ul {
   outline: 3px #131313;
 }
 
-.copy-email-button-2:focus-visible, .copy-email-button-2[data-wf-focus-visible] {
+.copy-email-button-2:focus-visible,
+.copy-email-button-2[data-wf-focus-visible] {
   outline-offset: 4px;
   border-style: none;
   outline: 2px solid #fff;
@@ -1734,7 +2263,8 @@ ul {
     max-width: 900px;
   }
 
-  .hero-top-line.retro-type, .hero-bottom-line.retro-type {
+  .hero-top-line.retro-type,
+  .hero-bottom-line.retro-type {
     font-size: 5em;
   }
 
@@ -1859,7 +2389,8 @@ ul {
     grid-row-gap: 7em;
   }
 
-  .overlay-col.section-2, .overlay-col.section-3 {
+  .overlay-col.section-2,
+  .overlay-col.section-3 {
     margin-left: auto;
   }
 
@@ -1921,7 +2452,8 @@ ul {
     white-space: normal;
   }
 
-  .button-primary.is-bazzle-snap, .button-secondary.is-bazzle-snap {
+  .button-primary.is-bazzle-snap,
+  .button-secondary.is-bazzle-snap {
     padding-top: .875em;
     padding-bottom: .875em;
   }
@@ -2084,7 +2616,8 @@ ul {
     order: -1;
   }
 
-  .button-primary.is-bazzle-snap, .button-secondary.is-bazzle-snap {
+  .button-primary.is-bazzle-snap,
+  .button-secondary.is-bazzle-snap {
     padding-top: 1.25em;
     padding-bottom: 1.25em;
   }
@@ -2204,7 +2737,8 @@ ul {
     grid-row-gap: 1.5em;
   }
 
-  .copy-email-text__wrap, .copy-email-text__wrap-2 {
+  .copy-email-text__wrap,
+  .copy-email-text__wrap-2 {
     font-size: 1em;
   }
 
