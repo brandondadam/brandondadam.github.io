@@ -2752,3 +2752,16 @@ ul {
     justify-self: auto;
   }
 }
+
+[data-modal-group-status] {
+  transition: all 0.2s linear;
+}
+
+[data-modal-group-status="active"] {
+  opacity: 1;
+  visibility: visible;
+}
+
+[data-modal-name][data-modal-status="active"] {
+  display: flex;
+}
