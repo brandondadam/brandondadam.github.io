@@ -33,7 +33,7 @@ function initGalleryOverlayTransitionFlip() {
 
         // Show the overlay and get elements for animation
         const overlayItem = overlayItems[index];
-        const content = overlayItem.querySelector(".overlay-row");
+        const content = overlayItem.querySelector(".overlay-content");
 
         gsap.set(overlayItem, {
             display: "block",
@@ -105,7 +105,7 @@ function initGalleryOverlayTransitionFlip() {
         const index = Array.from(listItems).indexOf(activeListItem);
         const overlayItem = overlayItems[index];
         const title = overlayItem.querySelector("[data-overlay='text-target'] .project-title");
-        const overlayContent = overlayItem.querySelector(".overlay-row");
+        const overlayContent = overlayItem.querySelector(".overlay-content");
 
         // Record the state of title and image in overlay
         const titleState = Flip.getState(title, {
@@ -138,19 +138,12 @@ function initGalleryOverlayTransitionFlip() {
         //Reset overlay display and move elements back to their original containers
         gsap.to(overlayContent, {
             autoAlpha: 0,
+            yPercent: 110,
             onComplete: () => {
+                gsap.set(overlayContent, { yPercent: 0 });
                 overlayItem.style.display = "none";
             }
         });
-
-        // gsap.to(overlayContent, {
-        //     yPercent: 110,
-        //     autoAlpha: 0,
-        //     onComplete: () => {
-        //         overlayItem.style.display = "none";
-        //     }
-        // });
-        // This fades nice, but the next time the modal opens, the content is moved down. 
 
         activeListItem.querySelector(".project-button").appendChild(title);
 

@@ -1540,7 +1540,14 @@ ul {
   display: flex;
 }
 
-.overlay-row {
+.overlay-content {
+  justify-content: space-between;
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+}
+
+.overlay-flex-container {
   grid-column-gap: 3.5em;
   grid-row-gap: 3.5em;
   justify-content: space-between;
@@ -1548,11 +1555,13 @@ ul {
   display: flex;
 }
 
-.overlay-row.section-3 {
+.overlay-section-3 {
   justify-content: space-around;
+  display: flex;
   padding-top: 10.5em;
   padding-left: 7em;
   padding-right: 7em;
+  width: 100%;
 }
 
 .main-title__list:hover:has(.main-title__item:hover) .main-title__item:not(:hover) {
@@ -1689,10 +1698,10 @@ ul {
   padding-top: 3.5em;
 }
 
-.overlay-col.section-3 {
+.overlay-section-3 {
   grid-column-gap: 7em;
   grid-row-gap: 7em;
-  max-width: 35em;
+  /* max-width: 35em; */
 }
 
 .project-transitions {
@@ -2276,7 +2285,13 @@ ul {
     max-width: 54em;
   }
 
-  .overlay-row {
+  .overlay-content {
+    max-width: 108em;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .overlay-flex-container {
     max-width: 108em;
     margin-left: auto;
     margin-right: auto;
@@ -2357,13 +2372,19 @@ ul {
     max-width: none;
   }
 
-  .overlay-row {
+  .overlay-content {
     flex-flow: wrap;
     justify-content: space-between;
     align-items: flex-start;
   }
 
-  .overlay-row.section-3 {
+  .overlay-flex-container {
+    flex-flow: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .overlay-section-3 {
     padding-top: 7em;
     padding-left: 7em;
     padding-right: 0;
@@ -2390,7 +2411,7 @@ ul {
   }
 
   .overlay-col.section-2,
-  .overlay-col.section-3 {
+  .overlay-section-3 {
     margin-left: auto;
   }
 
@@ -2511,9 +2532,10 @@ ul {
     width: 100%;
   }
 
-  .overlay-row.section-3 {
+  .overlay-section-3 {
     padding-top: 10em;
     padding-left: 0;
+    max-width: 35em;
   }
 
   .overlay-item {
@@ -2653,11 +2675,15 @@ ul {
     height: 32em;
   }
 
-  .overlay-row {
+  .overlay-content {
     padding-left: 0;
   }
 
-  .overlay-row.section-3 {
+  .overlay-flex-container {
+    padding-left: 0;
+  }
+
+  .overlay-section-3 {
     padding-top: 10em;
   }
 
