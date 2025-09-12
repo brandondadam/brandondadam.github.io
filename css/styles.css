@@ -30,22 +30,6 @@
   font-display: swap;
 }
 
-#gradient-canvas {
-  width: 100vw;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  z-index: -100;
-  filter: blur(24px);
-  opacity: 0;
-  animation: fadeIn 6s ease forwards;
-  animation-delay: 5s;
-  --gradient-color-1: #000000;
-  --gradient-color-2: #121212;
-  --gradient-color-3: #000000;
-  --gradient-color-4: #212121;
-}
-
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -78,6 +62,22 @@
   --color-light: var(--color-neutral-50);
   --section-padding: 0em;
   --container-padding: 2em;
+}
+
+#gradient-canvas {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  z-index: -100;
+  filter: blur(24px);
+  opacity: 0;
+  animation: fadeIn 6s ease forwards;
+  animation-delay: 5s;
+  --gradient-color-1: var(--color-neutral-900);
+  --gradient-color-2: var(--color-neutral-900);
+  --gradient-color-3: #000;
+  --gradient-color-4: var(--color-neutral-600);
 }
 
 .w-layout-vflex {
