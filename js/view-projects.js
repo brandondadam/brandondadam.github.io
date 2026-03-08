@@ -8,6 +8,7 @@ gsap.defaults({
 
 function initGalleryOverlayTransitionFlip() {
     const listItems = document.querySelectorAll(".main-title__item");
+    const WIPTags = document.querySelectorAll(".wip-tag");
     const projectHero = document.querySelectorAll(".project-hero-image");
     const projectOverviewItems = document.querySelectorAll(".project-overview-item");
     const overlayItems = document.querySelectorAll(".overlay-item");
@@ -101,6 +102,12 @@ function initGalleryOverlayTransitionFlip() {
             duration: 0.45
         });
 
+        //Hide WIP Tags
+        gsap.to(WIPTags, {
+            autoAlpha: 0,
+            duration: 0.25
+        });
+
         listItems.forEach((listItem, i) => {
             if (i !== index) {
                 const otherTitle = listItem.querySelector(".project-title");
@@ -184,6 +191,13 @@ function initGalleryOverlayTransitionFlip() {
             autoAlpha: 1,
             duration: 0.45,
             delay: 0.3
+        });
+
+        //Show WIP Tags
+        gsap.to(WIPTags, {
+            autoAlpha: 1,
+            duration: 0.45,
+            delay: 0.45
         });
 
         // Remove active class
