@@ -9,6 +9,7 @@ gsap.defaults({
 function initGalleryOverlayTransitionFlip() {
     const listItems = document.querySelectorAll(".main-title__item");
     const projectHero = document.querySelectorAll(".project-hero-image");
+    const projecOverviewItems = document.querySelectorAll(".project-overview-item");
     const overlayItems = document.querySelectorAll(".overlay-item");
     const closeButton = document.querySelector("[data-overlay='close']");
     const headings = document.querySelectorAll(".project-title");
@@ -68,6 +69,21 @@ function initGalleryOverlayTransitionFlip() {
         // Animate with GSAP Flip
         Flip.from(titleState);
 
+        //Show Project Overview Items
+        projecOverviewItems.forEach((OverviewItem, i) => {
+            if (i !== index - 1) {
+                gsap.fromTo(OverviewItem, {
+                    yPercent: 100,
+                    autoAlpha: 0
+                }, {
+                    yPercent: 0,
+                    autoAlpha: 1,
+                    duration: 0.45,
+                    delay: .92 - i * 0.05
+                });
+            }
+        });
+
         //Show Hero Image
         gsap.fromTo(projectHero, {
             yPercent: 100,
@@ -110,6 +126,18 @@ function initGalleryOverlayTransitionFlip() {
         // Record the state of title and image in overlay
         const titleState = Flip.getState(title, {
             props: "fontSize"
+        });
+
+        //Hide Project Overview Items
+        projecOverviewItems.forEach((OverviewItem, i) => {
+            if (i !== index - 1) {
+                gsap.to(OverviewItem, {
+                    yPercent: 100,
+                    autoAlpha: 0,
+                    duration: 0.45,
+                    delay: 0 - i * 0.05
+                });
+            }
         });
 
         //Hide Hero Image
