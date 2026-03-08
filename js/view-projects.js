@@ -9,7 +9,7 @@ gsap.defaults({
 function initGalleryOverlayTransitionFlip() {
     const listItems = document.querySelectorAll(".main-title__item");
     const projectHero = document.querySelectorAll(".project-hero-image");
-    const projecOverviewItems = document.querySelectorAll(".project-overview-item");
+    const projectOverviewItems = document.querySelectorAll(".project-overview-item");
     const overlayItems = document.querySelectorAll(".overlay-item");
     const closeButton = document.querySelector("[data-overlay='close']");
     const headings = document.querySelectorAll(".project-title");
@@ -44,7 +44,7 @@ function initGalleryOverlayTransitionFlip() {
             autoAlpha: 0
         }, {
             autoAlpha: 1,
-            delay: 0.5
+            delay: 1.1
         })
 
         //Back Button Stuff
@@ -70,7 +70,7 @@ function initGalleryOverlayTransitionFlip() {
         Flip.from(titleState);
 
         //Show Project Overview Items
-        projecOverviewItems.forEach((OverviewItem, i) => {
+        projectOverviewItems.forEach((OverviewItem, i) => {
             if (i !== index - 1) {
                 gsap.fromTo(OverviewItem, {
                     yPercent: 100,
@@ -79,7 +79,7 @@ function initGalleryOverlayTransitionFlip() {
                     yPercent: 0,
                     autoAlpha: 1,
                     duration: 0.45,
-                    delay: .92 - i * 0.05
+                    delay: .85
                 });
             }
         });
@@ -91,7 +91,7 @@ function initGalleryOverlayTransitionFlip() {
         }, {
             yPercent: 0,
             autoAlpha: 110,
-            delay: .6
+            delay: 1
         });
 
         //Hide Other Content
@@ -129,7 +129,7 @@ function initGalleryOverlayTransitionFlip() {
         });
 
         //Hide Project Overview Items
-        projecOverviewItems.forEach((OverviewItem, i) => {
+        projectOverviewItems.forEach((OverviewItem, i) => {
             if (i !== index - 1) {
                 gsap.to(OverviewItem, {
                     yPercent: 100,
