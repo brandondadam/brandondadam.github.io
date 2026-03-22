@@ -2178,7 +2178,6 @@ ul {
 }
 
 .about-image {
-  aspect-ratio: 3 / 2;
   object-fit: cover;
   background-image: url('../media/about-me-photo.jpg');
   background-position: 50%;
