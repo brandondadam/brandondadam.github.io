@@ -1675,7 +1675,7 @@ ul {
 
 .main-title__list {
   grid-column-gap: 1em;
-  grid-row-gap: .14em;
+  grid-row-gap: .16em;
   flex-flow: column;
   grid-template-rows: auto auto auto auto auto;
   grid-template-columns: 1fr 1fr;
@@ -2579,6 +2579,10 @@ ul {
 
   .hero-overview {
     margin-bottom: 1.5em;
+  }
+
+  .main-title__list {
+    grid-row-gap: .43em;
   }
 
   .main-title__item {
