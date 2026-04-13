@@ -2180,6 +2180,7 @@ ul {
 .about-image {
   object-fit: cover;
   background-image: url('../media/about-me-photo.jpg');
+  height: 16rem;
   background-position: 50%;
   background-size: cover;
   border-radius: 2px;
