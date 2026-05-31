@@ -1,0 +1,14 @@
+# macOS
+.DS_Store
+
+# Node / package manager
+node_modules/
+
+# AI tooling
+.claude/
+.claude-*
+.mcp/
+.mcp-*
+.gitpod/
+.github/copilot-*
+.mcp.json
