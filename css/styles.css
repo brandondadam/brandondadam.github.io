@@ -66,6 +66,21 @@
   --container-padding: 2em;
 }
 
+.logo.home,
+.logo-text,
+.avatar-button,
+.project-headers,
+.main-title__list,
+.hero-top-line,
+.hero-bottom-line,
+.hero-button-group,
+.footer-text,
+.socail-b1,
+.socail-b2,
+.socail-b3 {
+  opacity: 0;
+}
+
 #gradient-canvas {
   width: 100vw;
   height: 100vh;
@@ -80,12 +95,6 @@
   --gradient-color-2: var(--color-neutral-900);
   --gradient-color-3: #000;
   --gradient-color-4: var(--color-neutral-600);
-}
-
-.w-layout-vflex {
-  flex-direction: column;
-  align-items: flex-start;
-  display: flex;
 }
 
 body {
@@ -2657,7 +2666,7 @@ ul {
 }
 
 @media screen and (max-width: 991px) {
-  #w-node-_4abcda02-be0b-f456-0448-8039b0b5e2f0-ae37cd05 {
+  #hero-content {
     justify-self: auto;
   }
 }
