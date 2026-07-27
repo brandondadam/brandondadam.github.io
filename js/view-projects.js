@@ -42,6 +42,11 @@ function initGalleryOverlayTransitionFlip() {
     const projectHashes = ['visionlink', 'dsp-mobile', 'freedom-tracker', 'immersion-vr', 'motorola', '48-custom', 'dynamic-desktops'];
 
     function openOverlay(index) {
+        // Reset scroll position — the overlay reuses the page's native
+        // scroll, which otherwise stays wherever it was left from the
+        // last time an overlay (or the main page) was scrolled.
+        window.scrollTo(0, 0);
+
         // Set active class to the clicked list item
         listItems.forEach(item => item.classList.remove("active"));
         activeListItem = listItems[index];
@@ -126,10 +131,12 @@ function initGalleryOverlayTransitionFlip() {
         });
 
         //Hide WIP Tags
-        toIfHas(WIPTags, {
-            autoAlpha: 0,
-            duration: 0.25
-        });
+        if (WIPTags.length) {
+            gsap.to(WIPTags, {
+                autoAlpha: 0,
+                duration: 0.25
+            });
+        }
 
         listItems.forEach((listItem, i) => {
             if (i !== index) {
@@ -200,6 +207,9 @@ function initGalleryOverlayTransitionFlip() {
             onComplete: () => {
                 gsap.set(overlayContent, { yPercent: 0 });
                 overlayItem.style.display = "none";
+                // Land back at the top of the main page rather than
+                // wherever the overlay happened to be scrolled to.
+                window.scrollTo(0, 0);
             }
         });
 
@@ -217,11 +227,13 @@ function initGalleryOverlayTransitionFlip() {
         });
 
         //Show WIP Tags
-        toIfHas(WIPTags, {
-            autoAlpha: 1,
-            duration: 0.45,
-            delay: 0.45
-        });
+        if (WIPTags.length) {
+            gsap.to(WIPTags, {
+                autoAlpha: 1,
+                duration: 0.45,
+                delay: 0.45
+            });
+        }
 
         // Remove active class
         activeListItem.classList.remove("active");

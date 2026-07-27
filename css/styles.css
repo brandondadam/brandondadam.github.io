@@ -2107,6 +2107,11 @@ ul {
   transition: transform .45s cubic-bezier(.65, 0, 0, 1);
 }
 
+.copy-text {
+  padding-top: .2em;
+  height: 1.25em
+}
+
 .copy-paste {
   display: none;
 }
