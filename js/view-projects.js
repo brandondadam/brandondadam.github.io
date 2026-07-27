@@ -21,6 +21,26 @@ function initGalleryOverlayTransitionFlip() {
     const logoText = document.querySelectorAll(".logo-text");
     let activeListItem = null;
 
+    const setIfHas = (target, vars) => {
+        if (!target) return;
+        if (target.length === 0) return;
+        gsap.set(target, vars);
+    };
+
+    const toIfHas = (target, vars) => {
+        if (!target) return;
+        if (target.length === 0) return;
+        gsap.to(target, vars);
+    };
+
+    const fromToIfHas = (target, fromVars, toVars) => {
+        if (!target) return;
+        if (target.length === 0) return;
+        gsap.fromTo(target, fromVars, toVars);
+    };
+
+    const projectHashes = ['visionlink', 'dsp-mobile', 'freedom-tracker', 'immersion-vr', 'motorola', '48-custom', 'dynamic-desktops'];
+
     function openOverlay(index) {
         // Reset scroll position — the overlay reuses the page's native
         // scroll, which otherwise stays wherever it was left from the
@@ -32,6 +52,9 @@ function initGalleryOverlayTransitionFlip() {
         activeListItem = listItems[index];
         activeListItem.classList.add("active");
 
+        // Update URL hash
+        window.location.hash = projectHashes[index];
+
         // Record the state of the title
         const title = activeListItem.querySelector(".project-title");
         const titleState = Flip.getState(title, {
@@ -42,28 +65,28 @@ function initGalleryOverlayTransitionFlip() {
         const overlayItem = overlayItems[index];
         const content = overlayItem.querySelector(".overlay-content");
 
-        gsap.set(overlayItem, {
+        setIfHas(overlayItem, {
             display: "block",
             autoAlpha: 1
-        })
-        gsap.fromTo(content, {
+        });
+        fromToIfHas(content, {
             autoAlpha: 0
         }, {
             autoAlpha: 1,
             delay: 1.1
-        })
+        });
 
         //Back Button Stuff
-        gsap.set(backButton, {
+        setIfHas(backButton, {
             display: "inline-block"
         });
-        gsap.set(logoButton, {
+        setIfHas(logoButton, {
             display: "none"
         });
-        gsap.set(backText, {
+        setIfHas(backText, {
             display: "block"
         });
-        gsap.set(logoText, {
+        setIfHas(logoText, {
             display: "none"
         });
 
@@ -91,7 +114,7 @@ function initGalleryOverlayTransitionFlip() {
         });
 
         //Show Hero Image
-        gsap.fromTo(projectHero, {
+        fromToIfHas(projectHero, {
             yPercent: 100,
             autoAlpha: 0
         }, {
@@ -101,7 +124,7 @@ function initGalleryOverlayTransitionFlip() {
         });
 
         //Hide Other Content
-        gsap.to(contentToHide, {
+        toIfHas(contentToHide, {
             yPercent: 0,
             autoAlpha: 0,
             duration: 0.45
@@ -155,7 +178,7 @@ function initGalleryOverlayTransitionFlip() {
         });
 
         //Hide Hero Image
-        gsap.fromTo(projectHero, {
+        fromToIfHas(projectHero, {
             yPercent: 0,
             autoAlpha: 1
         }, {
@@ -164,21 +187,21 @@ function initGalleryOverlayTransitionFlip() {
         });
 
         //Back Button Stuff
-        gsap.set(backButton, {
+        setIfHas(backButton, {
             display: "none"
         });
-        gsap.set(logoButton, {
+        setIfHas(logoButton, {
             display: "inline-block"
         });
-        gsap.set(backText, {
+        setIfHas(backText, {
             display: "none"
         });
-        gsap.set(logoText, {
+        setIfHas(logoText, {
             display: "block"
         });
 
         //Reset overlay display and move elements back to their original containers
-        gsap.to(overlayContent, {
+        toIfHas(overlayContent, {
             autoAlpha: 0,
             yPercent: 110,
             onComplete: () => {
@@ -196,7 +219,7 @@ function initGalleryOverlayTransitionFlip() {
         Flip.from(titleState);
 
         //Show Other Content
-        gsap.to(contentToHide, {
+        toIfHas(contentToHide, {
             yPercent: 0,
             autoAlpha: 1,
             duration: 0.45,
@@ -215,7 +238,11 @@ function initGalleryOverlayTransitionFlip() {
         // Remove active class
         activeListItem.classList.remove("active");
         activeListItem = null;
-        gsap.to(headings, {
+
+        // Update URL hash
+        window.location.hash = '';
+
+        toIfHas(headings, {
             yPercent: 0,
             autoAlpha: 1,
             delay: 0.3,
@@ -223,9 +250,27 @@ function initGalleryOverlayTransitionFlip() {
         });
     }
 
-    // Add click event listeners to list items
-    listItems.forEach((listItem, index) => {
-        listItem.addEventListener("click", () => openOverlay(index));
+    // Handle hash changes for browser back/forward
+    window.addEventListener('hashchange', () => {
+        const hash = window.location.hash.slice(1);
+        if (hash === '') {
+            if (activeListItem) closeOverlay();
+        } else {
+            const index = projectHashes.indexOf(hash);
+            if (index !== -1 && !activeListItem) {
+                openOverlay(index);
+            }
+        }
+    });
+
+    const projectButtons = document.querySelectorAll(".project-button");
+
+    // Add click event listeners to project buttons and prevent anchor defaults
+    projectButtons.forEach((button, index) => {
+        button.addEventListener("click", (event) => {
+            event.preventDefault();
+            openOverlay(index);
+        });
     });
 
     // Close overlay on ESC key
@@ -235,6 +280,15 @@ function initGalleryOverlayTransitionFlip() {
 
     // Close overlay on close button click
     closeButton.addEventListener("click", closeOverlay);
+
+    // Check for initial hash on page load
+    const initialHash = window.location.hash.slice(1);
+    if (initialHash) {
+        const index = projectHashes.indexOf(initialHash);
+        if (index !== -1) {
+            openOverlay(index);
+        }
+    }
 }
 
 // Initialize Gallery to Overlay Transition with GSAP Flip
